@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
+ 
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+     
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+       <layout class="org.apache.log4j.PatternLayout"> 
+          <param name="ConversionPattern" value="%d %-5p %c.%M:%L - %m%n"/> 
+       </layout> 
+    </appender>
+    
+    <appender name="file" class="org.apache.log4j.FileAppender">
+    	 <param name="file" value="D:/Users/c7183/projects/myWebApp/log/logging.log" />
+    	 <param name="Append" value="true" />
+       <param name="ImmediateFlush" value="true" />
+       <param name="MaxFileSize" value="10MB" />
+       <param name="MaxBackupIndex" value="10" />
+    	 <layout class="org.apache.log4j.PatternLayout"> 	 
+          <param name="ConversionPattern" value="%d %-5p %c.%M:%L - %m%n"/> 
+       </layout> 
+    </appender>
+  
+  
+    <!-- specify the logging level for loggers from other libraries -->
+    <logger name="com.opensymphony">
+        <!--
+        <level value="DEBUG" />
+        -->
+        <level value="INFO" />
+    </logger>
+ 
+    <logger name="org.apache.struts2">
+         <!--
+         <level value="DEBUG" />
+         -->
+         <level value="INFO" />
+    </logger>
+    
+    <logger name="org.hibernate">
+        <!--
+        <level value="ALL" />
+        -->        
+        <level value="DEBUG" />
+        <!--
+        <level value="INFO" />
+        -->
+        <appender-ref ref="FILE"/>
+
+    </logger>
+   
+   <!-- for all other loggers log only info and above log messages -->
+     <root>     		
+        <priority value="INFO"/>         
+        <appender-ref ref="STDOUT" /> 
+        <appender-ref ref="file" />
+     </root> 
+     
+</log4j:configuration> 

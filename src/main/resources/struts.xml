@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+ 
+    <constant name="struts.devMode" value="true" />    
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    
+    <!--
+    <constant name="struts.mapper.action.prefix.enabled" value="true" />
+    -->
+ 
+    <package name="default" extends="struts-default" >
+        <action name="index">
+            <result>/index.jsp</result>
+        </action>
+        
+        <!--
+         <action name="hello" class="org.apache.struts.helloworld.action.HelloWorldAction" method="execute">
+          <result name="success">/HelloWorld.jsp</result>
+        </action>
+        -->
+    </package>
+    
+    
+    <package name="demo-009-pkg" extends="default, json-default" namespace="/demo-009">
+    	
+    	
+    	<action name="add"  method="add" class="net.viralpatel.action.MtoMAction">
+    		<result name="success" type="json" >
+    			<param name="noCache">true</param>
+    		</result>
+    	</action>			
+
+			<action name="listInJson" class="net.viralpatel.action.MtoMAction">
+    		<result name="success" type="json" >    		
+    			  <param name="noCache">true</param>
+    		</result>
+    	</action>    	
+    	
+    	<action name="gsonOut"  method="gsonOut" class="net.viralpatel.action.MtoMAction">
+    	</action>		
+    	
+    </package>
+        
+    
+</struts>

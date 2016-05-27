@@ -1,0 +1,52 @@
+package net.viralpatel.service;
+ 
+//... import statements
+
+// import net.viralpatel.entity.*;
+import net.viralpatel.model.*;
+
+//import javacodegeeks.util.JpaUtil;
+import net.viralpatel.util.*;
+
+//import javax.persistence.*;
+import org.hibernate.HibernateException;
+import org.hibernate.classic.Session;
+
+import java.util.*;
+ 
+import org.apache.log4j.Logger; 
+ 
+public class MeetingService {
+ 
+    // protected EntityManager entityManager;
+    
+    //get log4j
+		private static final Logger logger = Logger.getLogger(MeetingService.class);    
+    
+    
+    public MeetingService() {
+        // this.entityManager = JpaUtil.getEntityManager();
+    }    
+    
+    public Meeting find(Long id) {
+    	 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+       session.beginTransaction();
+       Meeting meeting = (Meeting) session.get(Meeting.class, id);
+       session.getTransaction().commit();
+       return meeting
+    }
+    
+    public void update(Meeting m) {
+    		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+    		
+    		/*
+    		entityManager.getTransaction().begin(); 
+        entityManager.persist(m);
+        entityManager.getTransaction().commit(); 
+        */
+        
+        session.beginTransaction();
+        session.save(m);
+        session.getTransaction().commit();
+  	}
+}

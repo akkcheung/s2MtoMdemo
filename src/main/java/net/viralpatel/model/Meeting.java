@@ -1,0 +1,76 @@
+package net.viralpatel.model;
+ 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+ 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import lombok.*;
+ 
+@Entity
+// @Data
+@Table(name="MEETING")
+public class Meeting {
+ 
+    @Id
+    @Column(name="MEETING_ID")
+    @GeneratedValue
+    @Getter @Setter
+    private Long meetingId;
+ 
+    @Column(name="SUBJECT")
+    @Getter @Setter
+    private String subject;
+     
+    @Column(name="MEETING_DATE")
+    @Getter @Setter
+    private Date meetingDate;
+     
+    @ManyToMany(mappedBy="meetings")
+    private Set<Employez> employees = new HashSet<Employez>();
+     
+    public Meeting(String subject) {
+        this.subject = subject;
+        this.meetingDate = new Date();
+    }
+    
+    public Meeting() {
+    }
+     
+    // Getter and Setter methods
+    
+    @Override
+    public boolean equals(Object obj) {
+      if (obj == null) return false;
+      if (!this.getClass().equals(obj.getClass())) return false;
+
+      Meeting obj2 = (Meeting)obj;
+      if((this.meetingId == obj2.getMeetingId()) && (this.subject.equals(obj2.getSubject())))
+      {
+         return true;
+      }
+      return false;
+	  }
+	   
+	  @Override
+	  public int hashCode() {
+	      int tmp = 0;
+	      tmp = ( meetingId + subject ).hashCode();
+	      return tmp;
+	  }
+	  
+	   public Set<Employez> getEmployees() {
+			return this.employees;
+		}
+
+		public void setEmployees(Set<Employez> employees) {
+			this.employees = employees;
+		}
+		
+}
